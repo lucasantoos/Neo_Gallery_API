@@ -32,7 +32,7 @@ model User{
 
 model Imagem{
   id    Int     @id @default(autoincrement())
-  userid  Int   @unique
+  userid  Int
   url   String
   titulo String
   data  DateTime
