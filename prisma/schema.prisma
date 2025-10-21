@@ -6,10 +6,38 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+enum RoleUser{
+  ADMIN
+  USER
+}
+
+model User{
+  id    Int     @id @default(autoincrement())
+  nome  String    @db.VarChar(50)
+  email String    @db.VarChar(70) @unique
+  senha String    @db.VarChar(50)
+  role  RoleUser    @default(USER)
+  avatarUrl String
+  data  DateTime  @default(now())
+  imagem  Imagem[]
+}
+
+
+model Imagem{
+  id    Int     @id @default(autoincrement())
+  userid  Int   @unique
+  url   String
+  titulo String
+  data  DateTime
+  publico   Boolean
+  user  User @relation(fields:[userid], references: [id])
+
+}
+
