@@ -2,6 +2,7 @@ import { PrismaClient} from "@prisma/client";
 import type { ICreateUserInterface } from "../../domain/repository/user.interface.js";
 import type { CreateUserDTO } from "../../domain/dtos/create.user.dto.js";
 import type { IReturnUserDTO } from "../../domain/dtos/return.user.dto.js";
+import type { User } from "../../domain/entities/User.js";
 
 export class UserRepository implements ICreateUserInterface {
     constructor(private prisma: PrismaClient){}
@@ -28,7 +29,21 @@ export class UserRepository implements ICreateUserInterface {
         return allUsers
     }
 
-   
+    async delete(id: number): Promise<void> {
+        await this.prisma.user.delete({where:{
+            id: id
+        }})
+    }
 
-    
+    async find(id: number): Promise<IReturnUserDTO> {
+        const user = await this.prisma.user.findUnique({where:{
+            id
+        }})
+
+        return {
+            id: user!.id,
+            nome: user!.nome,
+            email: user!.email}
+    }
+
 }
