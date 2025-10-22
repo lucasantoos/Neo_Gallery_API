@@ -1,27 +1,27 @@
 import type { Email } from "../value-objects/email.validator.js"
 
-export class User{
+export class User {
     constructor(
         private readonly id: number,
         public nome: string,
-        public  email: Email,
-        public  senha: string,
+        public email: Email,
+        public senha: string,
         public avataUrl: string,
         public role: string,
-        public  data: Date
-    ){}
+        public data: Date
+    ) { }
 
-    addName(nome: string):void{
-        if(nome.length <= 1) throw new Error("O nome deve ser válido")
-            this.nome = nome
+    addName(nome: string): void {
+        if (nome.length <= 1) throw new Error("O nome deve ser válido")
+        this.nome = nome
     }
 
-    addSenha(senha:string):void{
-        if(senha.length <= 5)throw new Error("A senha precisa ter mais que 5 caracteres")
+    addSenha(senha: string): void {
+        if (senha.length <= 5) throw new Error("A senha precisa ter mais que 5 caracteres")
 
     }
 
-    get(email:string): void{
+    get(email: string): void {
         this.email.addEmail(email)
     }
 }
