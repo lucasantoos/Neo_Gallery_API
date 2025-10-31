@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, RoleUser } from "@prisma/client";
 import type { ICreateUserInterface } from "../../domain/repository/user.interface.js";
 import type { CreateUserDTO } from "../../domain/dtos/create.user.dto.js";
 import type { IReturnUserDTO } from "../../domain/dtos/return.user.dto.js";
@@ -47,7 +47,8 @@ export class UserRepository implements ICreateUserInterface {
         return {
             id: user!.id,
             nome: user!.nome,
-            email: user!.email
+            email: user!.email,
+            role: user.role
         }
     }
 

@@ -4,7 +4,7 @@ import type { UserService } from "../use-case/use.service.js";
 export class RegisterUserController {
     constructor(private userServiceRegister: UserService) { }
 
-    Login = async (req: any, rep: any) => {
+    Register = async (req: any, rep: any) => {
         try {
             const { email, nome, role, senha } = req.body
             const data: CreateUserDTO = {
