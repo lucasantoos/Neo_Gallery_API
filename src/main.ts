@@ -6,6 +6,10 @@ import { ImagemRepository } from './config/repository/Imagem.repository.js'
 import prismaRepo from './config/database/prisma.js'
 import { ImageService } from './application/use-case/imagem.service.js'
 import { ImageController } from './application/controller/image.controller.js'
+import { UserRepository } from './config/repository/user.repository.js'
+import { UserService } from './application/use-case/use.service.js'
+import { Email } from './domain/value-objects/email.validator.js'
+import { RegisterUserController } from './application/controller/user.controller.register.js'
 
 const PORT: number = 3000
 const app = fastify()
@@ -19,10 +23,13 @@ const repositoryImagem = new ImagemRepository(prismaRepo)
 const imagemservice = new ImageService(repositoryImagem)
 const imagemController = new ImageController(imagemservice)
 
-
+//Config dependencias da rota de user register
+const repositoryUser = new UserRepository(prismaRepo)
+const serviceUserCreate = new UserService(repositoryUser)
+const controllerUSer = new RegisterUserController(serviceUserCreate)
 //export dependence for routers main
 
-export { imagemController}
+export { imagemController, controllerUSer}
 
 
 app.listen({ port: PORT }).then(() => {
