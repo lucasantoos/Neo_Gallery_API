@@ -1,12 +1,12 @@
 import type { CreateUserDTO } from "../../domain/dtos/create.user.dto.js";
 import type { UserService } from "../use-case/use.service.js";
 
-export class RegisterUserController{
-    constructor(private userServiceRegister: UserService){}
+export class RegisterUserController {
+    constructor(private userServiceRegister: UserService) { }
 
-    Login = async (req: any, rep: any)=>{
-        try{
-            const {email, nome, role, senha} = req.body
+    Login = async (req: any, rep: any) => {
+        try {
+            const { email, nome, role, senha } = req.body
             const data: CreateUserDTO = {
                 email,
                 nome,
@@ -16,10 +16,12 @@ export class RegisterUserController{
             console.log("iniciando...")
             const newUser = await this.userServiceRegister.Create(data)
 
-            return rep.status(201).send(newUser.email, newUser.id, newUser.nome)
+            return rep.status(201).send({
+                newUser
+            })
 
-        }catch(e:any){
-            return rep.status(400).send({mensagem:e.message})
+        } catch (e: any) {
+            return rep.status(400).send({ mensagem: e.message })
         }
 
     }

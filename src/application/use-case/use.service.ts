@@ -8,13 +8,15 @@ export class UserService{
     ){}
 
     async Create(data: CreateUserDTO){
-        if(!data) throw new Error("Os dados precisam estar preenchidos")
 
-            //this.EmailValidator.addEmail(data.email)
+        if(!data.email || !data.nome|| !data.role || !data.senha) throw new Error("Os dados precisam estar preenchidos")
+
+
+            if(!data.email.includes("@"))throw new Error("formato do email inválido")
     
             const exist = await this. UserRepository.find(data.email)
 
-            if(exist) throw new Error("O email informado ja se encontra em uso! Por favor insira um novo email")
+            if(exist != null) throw new Error("O email informado ja se encontra em uso! Por favor insira um novo email")
 
                 const HashPassword = await bcrypt.hash(data.senha, 12)
                 data.senha = HashPassword

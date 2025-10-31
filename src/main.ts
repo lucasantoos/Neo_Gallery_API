@@ -8,7 +8,6 @@ import { ImageService } from './application/use-case/imagem.service.js'
 import { ImageController } from './application/controller/image.controller.js'
 import { UserRepository } from './config/repository/user.repository.js'
 import { UserService } from './application/use-case/use.service.js'
-import { Email } from './domain/value-objects/email.validator.js'
 import { RegisterUserController } from './application/controller/user.controller.register.js'
 
 const PORT: number = 3000
