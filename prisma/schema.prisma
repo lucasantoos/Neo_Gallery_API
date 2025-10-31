@@ -24,7 +24,6 @@ model User{
   email String    @db.VarChar(70) @unique
   senha String    @db.VarChar(50)
   role  RoleUser    @default(USER)
-  avatarUrl String
   data  DateTime  @default(now())
   imagem  Imagem[]
 }

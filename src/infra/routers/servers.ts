@@ -1,7 +1,7 @@
 import type { FastifyInstance } from "fastify";
 import multer from "fastify-multer";
 import configMulter from "../../config/fileconfigs/multer.js"
-import { imagemController } from "../../main.js";
+import { controllerUSer, imagemController } from "../../main.js";
 
 export function routers(fastify: FastifyInstance) {
 
@@ -12,4 +12,6 @@ export function routers(fastify: FastifyInstance) {
     })
 
     fastify.post('/image', { preHandler: upload.single("file") }, imagemController.Image)
+
+    fastify.post("/register", controllerUSer.Login)
 }

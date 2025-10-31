@@ -12,15 +12,10 @@ export class UserRepository implements ICreateUserInterface {
                 nome: user.nome,
                 email: user.email,
                 senha: user.senha,
-                avatarUrl: user.avataUrl,
                 role: "ADMIN",
             }
         })
-        return {
-            id: newUser.id,
-            email: user.email,
-            nome: user.nome
-        }
+        return newUser
     }
 
     async findAll(email: string): Promise<any> {
@@ -40,10 +35,10 @@ export class UserRepository implements ICreateUserInterface {
         })
     }
 
-    async find(id: number): Promise<IReturnUserDTO> {
+    async find(email: string): Promise<IReturnUserDTO> {
         const user = await this.prisma.user.findUnique({
             where: {
-                id
+                email
             }
         })
 

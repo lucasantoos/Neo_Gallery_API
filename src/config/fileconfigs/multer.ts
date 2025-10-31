@@ -1,4 +1,4 @@
-import crypto, { hash } from 'crypto'
+import crypto from 'crypto'
 import multer from 'fastify-multer'
 import path from "path"
 import { fileURLToPath } from 'url'
