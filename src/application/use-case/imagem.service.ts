@@ -4,12 +4,12 @@ export class ImageService{
     constructor(private RepositoryImage: ICreateImagemInterface){}
 
     async createImagem(data:{titulo: string, url: string, publico:boolean, data: Date, userID: number}){
-        
+        data.data = new Date()
         if(!data) throw new Error ("Dados inválidos")
 
 
         const imageSave = await this.RepositoryImage.create(data)
 
-        return imageSave
+        return
     }
 }
