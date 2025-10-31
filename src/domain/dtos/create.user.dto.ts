@@ -2,6 +2,6 @@ export interface CreateUserDTO {
     nome: string,
     email: string,
     senha: string,
-    avataUrl: string,
+    avatarUrl: string,
     role: string
 }
