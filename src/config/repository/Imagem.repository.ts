@@ -36,7 +36,7 @@ export class ImagemRepository implements ICreateImagemInterface {
         }
 
     async delete(id: number): Promise<void> {
-        // farei posteriormente sem uso ainda
+    
     }
 
     async findAll(user:{ id: number}): Promise<ReturnImageDTO[]> {
