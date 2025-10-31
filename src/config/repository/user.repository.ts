@@ -13,6 +13,7 @@ export class UserRepository implements ICreateUserInterface {
                 email: user.email,
                 senha: user.senha,
                 role: "ADMIN",
+                data: new Date()
             }
         })
         return newUser
@@ -35,12 +36,13 @@ export class UserRepository implements ICreateUserInterface {
         })
     }
 
-    async find(email: string): Promise<IReturnUserDTO> {
+    async find(email: string): Promise<IReturnUserDTO | null> {
         const user = await this.prisma.user.findUnique({
             where: {
                 email
             }
         })
+        if (!user) {return null}
 
         return {
             id: user!.id,

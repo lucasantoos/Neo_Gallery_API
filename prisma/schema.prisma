@@ -20,9 +20,9 @@ enum RoleUser{
 
 model User{
   id    Int     @id @default(autoincrement())
-  nome  String    @db.VarChar(50)
-  email String    @db.VarChar(70) @unique
-  senha String    @db.VarChar(50)
+  nome  String    @db.VarChar(100)
+  email String    @db.VarChar(100) @unique
+  senha String    @db.VarChar(255)
   role  RoleUser    @default(USER)
   data  DateTime  @default(now())
   imagem  Imagem[]
