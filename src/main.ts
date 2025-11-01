@@ -1,5 +1,4 @@
 import { fastify } from 'fastify'
-import dotenv from 'dotenv'
 import formbody from '@fastify/formbody'
 import { routers } from './infra/routers/servers.js'
 import fastifyMultipart from '@fastify/multipart'
@@ -8,13 +7,13 @@ import prismaRepo from './config/database/prisma.js'
 import { ImageService } from './application/use-case/imagem.service.js'
 import { ImageController } from './application/controller/image.controller.js'
 import { UserRepository } from './config/repository/user.repository.js'
-import { UserService } from './application/use-case/use.service.js'
+import { UserService } from './application/use-case/use.create.service.js'
 import { RegisterUserController } from './application/controller/user.controller.register.js'
 import { UserSessionController } from './application/controller/user.controller.session.js'
+import { LoginUser } from './application/use-case/use.login.service.js'
 
 const PORT: number = 3000
 const app = fastify()
-dotenv.config()
 app.register(fastifyMultipart)
 app.register(formbody)
 app.register(routers)
@@ -26,15 +25,18 @@ const repositoryImagem = new ImagemRepository(prismaRepo)
 const imagemservice = new ImageService(repositoryImagem)
 const imagemController = new ImageController(imagemservice)
 
-//Config dependencias da rota de user
+//Config dependences router of register
 const repositoryUser = new UserRepository(prismaRepo)
 const serviceUserCreate = new UserService(repositoryUser)
 const controllerUSer = new RegisterUserController(serviceUserCreate)
-const controllerSessionUser =  new UserSessionController(serviceUserCreate)
+
+//dependences router of session
+const loginUser = new LoginUser(repositoryUser)
+const controllerSessionUser = new UserSessionController(loginUser)
 
 //export dependence for routers main
 
-export { imagemController, controllerUSer, controllerSessionUser}
+export { imagemController, controllerUSer, controllerSessionUser }
 
 
 app.listen({ port: PORT }).then(() => {
