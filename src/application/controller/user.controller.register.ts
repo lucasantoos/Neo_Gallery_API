@@ -1,5 +1,5 @@
 import type { CreateUserDTO } from "../../domain/dtos/create.user.dto.js";
-import type { UserService } from "../use-case/use.service.js";
+import type { UserService } from "../use-case/use.create.service.js";
 
 export class RegisterUserController {
     constructor(private userServiceRegister: UserService) { }
