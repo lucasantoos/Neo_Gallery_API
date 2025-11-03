@@ -1,6 +1,6 @@
 import { fastify } from 'fastify'
 import formbody from '@fastify/formbody'
-import { routers } from './infra/routers/servers.js'
+import { routersPrivates } from './infra/routers/private.js'
 import fastifyMultipart from '@fastify/multipart'
 import { ImagemRepository } from './config/repository/Imagem.repository.js'
 import prismaRepo from './config/database/prisma.js'
@@ -11,13 +11,20 @@ import { UserService } from './application/use-case/use.create.service.js'
 import { RegisterUserController } from './application/controller/user.controller.register.js'
 import { UserSessionController } from './application/controller/user.controller.session.js'
 import { LoginUser } from './application/use-case/use.login.service.js'
+import { VerificationRoutersAcess } from './application/middleware/verification.user.middleware.js'
+import { publcRouters } from './infra/routers/public.js'
 
 const PORT: number = 3000
 const app = fastify()
 app.register(fastifyMultipart)
 app.register(formbody)
-app.register(routers)
+app.register(publcRouters)
+app.register(routersPrivates)
 
+
+//middleware
+
+const auth = new VerificationRoutersAcess()
 
 //Config dependencias da rota de imagem
 
@@ -34,9 +41,11 @@ const controllerUSer = new RegisterUserController(serviceUserCreate)
 const loginUser = new LoginUser(repositoryUser)
 const controllerSessionUser = new UserSessionController(loginUser)
 
+
+
 //export dependence for routers main
 
-export { imagemController, controllerUSer, controllerSessionUser }
+export { imagemController, controllerUSer, controllerSessionUser, auth }
 
 
 app.listen({ port: PORT }).then(() => {

@@ -23,7 +23,7 @@ model User{
   nome  String    @db.VarChar(100)
   email String    @db.VarChar(100) @unique
   senha String    @db.VarChar(255)
-  role  RoleUser    @default(USER)
+  role  RoleUser  
   data  DateTime  @default(now())
   imagem  Imagem[]
 }

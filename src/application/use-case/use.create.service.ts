@@ -17,14 +17,19 @@ export class UserService {
 
         if (!data.email.includes("@")) throw new Error("formato do email inválido")
 
+
+        if (data.role != "ADMIN" || "USER") throw new Error("Está permissão não é válida")
+
         const exist = await this.UserRepository.find(data.email)
 
         if (exist != null) throw new Error("O email informado ja se encontra em uso! Por favor insira um novo email")
 
         const HashPassword = await bcrypt.hash(data.senha, 12)
         data.senha = HashPassword
+
         const newUser = await this.UserRepository.create(data)
         console.log("iniciando validação do user case")
+
         return newUser
     }
 
