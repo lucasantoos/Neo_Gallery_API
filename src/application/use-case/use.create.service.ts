@@ -1,3 +1,4 @@
+import { RoleUser } from "@prisma/client";
 import type { CreateUserDTO } from "../../domain/dtos/create.user.dto.js";
 import type { ICreateUserInterface } from "../../domain/repository/user.interface.js";
 import bcrypt from "bcrypt"
@@ -17,8 +18,9 @@ export class UserService {
 
         if (!data.email.includes("@")) throw new Error("formato do email inválido")
 
+        console.log(data.role)
 
-        if (data.role != "ADMIN" || "USER") throw new Error("Está permissão não é válida")
+        if (!Object.values(RoleUser).includes(data.role)) throw new Error("Está permissão não é válida")
 
         const exist = await this.UserRepository.find(data.email)
 

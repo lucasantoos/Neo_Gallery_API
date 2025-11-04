@@ -18,6 +18,7 @@ export class VerificationRoutersAcess {
         const decoded = await jwt.verify(token, process.env.SECRET_KEY)
 
         console.log(decoded)
+        req.use = decoded
 
     }
 }

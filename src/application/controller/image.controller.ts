@@ -1,3 +1,4 @@
+import type { CreateImageDTO } from "../../domain/dtos/create.image.dto.js";
 import type { ImageService } from "../use-case/imagem.service.js";
 
 export class ImageController {
@@ -7,13 +8,13 @@ export class ImageController {
         try {
             console.log(req.file)
             const { titulo, url, publico, data, userID } = req.body
-            
-            const dados = {
-                titulo: '',
+
+            const dados: CreateImageDTO = {
+                titulo,
                 publico: true,
-                url: '',
+                url: req.file.path,
                 data: new Date(),
-                userID: 0
+                userID: req.use.id
             }
             const imagem = await this.ImageService.createImagem(dados)
             console.log(req.file)
