@@ -6,7 +6,9 @@ import { auth, controllerSessionUser, controllerUSer, imagemController } from ".
 export function routersPrivates(fastify: FastifyInstance) {
 
     fastify.addHook("onRequest", auth.Validation)
+
     const upload = multer(configMulter as any)
+
 
     fastify.get("/opa", (req: any, rep: any): any => {
         return rep.send("teste")

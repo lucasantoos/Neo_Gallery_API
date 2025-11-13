@@ -6,7 +6,10 @@ export class ImageController {
 
     public Image = async (req: any, rep: any) => {
         try {
+
             const { titulo} = req.body
+
+            console.log(req.file)
 
             const dados: CreateImageDTO = {
                 titulo,

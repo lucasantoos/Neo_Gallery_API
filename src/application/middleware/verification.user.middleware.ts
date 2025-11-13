@@ -10,6 +10,9 @@ export class VerificationRoutersAcess {
 
         if (!token) throw new Error("Token inválido ou inexistente")
 
+        console.log(token)
+
+
         if (!process.env.SECRET_KEY) throw new Error("chave secreta não disponivel")
 
         const decoded = await jwt.verify(token, process.env.SECRET_KEY)
