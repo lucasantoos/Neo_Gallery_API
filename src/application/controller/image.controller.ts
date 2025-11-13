@@ -1,3 +1,4 @@
+import type { CreateImageDTO } from "../../domain/dtos/create.image.dto.js";
 import type { ImageService } from "../use-case/imagem.service.js";
 
 export class ImageController {
@@ -5,18 +6,18 @@ export class ImageController {
 
     public Image = async (req: any, rep: any) => {
         try {
-            console.log(req.file)
-            const { titulo, url, publico, data, userID } = req.body
-            
-            const dados = {
-                titulo: '',
+            const { titulo} = req.body
+
+            const dados: CreateImageDTO = {
+                titulo,
                 publico: true,
-                url: '',
+                url: req.file.path || req.file.location,
                 data: new Date(),
-                userID: 0
+                userID: req.use.id
             }
-            const imagem = await this.ImageService.createImagem(dados)
             console.log(req.file)
+            const imagem = await this.ImageService.createImagem(dados)
+            
             return rep.status(201).send(imagem)
         } catch (e: any) {
             return rep.send({ message: e.message })

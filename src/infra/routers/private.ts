@@ -1,11 +1,12 @@
 import type { FastifyInstance } from "fastify";
 import multer from "fastify-multer";
 import configMulter from "../../config/fileconfigs/multer.js"
-import { controllerSessionUser, controllerUSer, imagemController } from "../../main.js";
+import { auth, controllerSessionUser, controllerUSer, imagemController } from "../../main.js";
 
-export function routers(fastify: FastifyInstance) {
+export function routersPrivates(fastify: FastifyInstance) {
 
-    const upload = multer(configMulter)
+    fastify.addHook("onRequest", auth.Validation)
+    const upload = multer(configMulter as any)
 
     fastify.get("/opa", (req: any, rep: any): any => {
         return rep.send("teste")
@@ -13,7 +14,5 @@ export function routers(fastify: FastifyInstance) {
 
     fastify.post('/image', { preHandler: upload.single("file") }, imagemController.Image)
 
-    fastify.post("/register", controllerUSer.Register)
 
-    fastify.post("/session", controllerSessionUser.Login)
 }

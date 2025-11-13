@@ -12,7 +12,7 @@ export class UserRepository implements ICreateUserInterface {
                 nome: user.nome,
                 email: user.email,
                 senha: user.senha,
-                role: "ADMIN",
+                role: user.role,
                 data: new Date()
             }
         })

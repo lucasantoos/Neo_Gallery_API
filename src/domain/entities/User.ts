@@ -1,10 +1,8 @@
-import type { Email } from "../value-objects/email.validator.js"
-
 export class User {
     constructor(
         private readonly id: number,
         public nome: string,
-        public email: Email,
+        public email: string,
         public senha: string,
         public avataUrl: string,
         public role: string,
@@ -22,6 +20,6 @@ export class User {
     }
 
     get(email: string): void {
-        this.email.addEmail(email)
+        this.email
     }
 }

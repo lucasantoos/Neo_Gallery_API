@@ -1,4 +1,4 @@
-import type { UserService } from "../use-case/use.create.service.js";
+import type { UserLoginDTO } from "../../domain/dtos/login.user.dto.js";
 import type { LoginUser } from "../use-case/use.login.service.js";
 
 export class UserSessionController {
@@ -7,7 +7,7 @@ export class UserSessionController {
     Login = async (req: any, rep: any) => {
         try {
             const { email, senha } = req.body
-            const data = {
+            const data: UserLoginDTO = {
                 email,
                 senha
             }
